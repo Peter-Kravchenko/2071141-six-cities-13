@@ -42,7 +42,7 @@ export const fetchFavoritesAction = createAsyncThunk<
 });
 
 export const changeFavoritesAction = createAsyncThunk<
-  Offers,
+  Offer,
   FavoriteData,
   Extra & { state: State }
 >(
@@ -54,7 +54,7 @@ export const changeFavoritesAction = createAsyncThunk<
       dispatch(redirectToRoute(AppRoute.Login));
       return null;
     }
-    const { data } = await api.post<Offers[]>(
+    const { data } = await api.post<Offer>(
       `${APIRoute.Favorite}/${id}/${status}`
     );
     return data;

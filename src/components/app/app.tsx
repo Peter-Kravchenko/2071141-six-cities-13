@@ -15,7 +15,6 @@ import { getAuthorizationStatus } from '../../store/user-data/user-data.selector
 
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
-  //const isOffersDataLoading = useAppSelector((state) => state.isOffersLoading);
 
   if (authorizationStatus === AuthorizationStatus.Unknown) {
     return <LoadingScreen />;
