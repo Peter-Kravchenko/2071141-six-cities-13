@@ -17,7 +17,10 @@ import {
   getOffersFetchingStatus,
 } from '../../store/offers-data/offers-data.selectors';
 import LoadingScreen from '../loading-screen/loading-screen';
-import { fetchOffersAction } from '../../store/api-actions';
+import {
+  fetchFavoritesAction,
+  fetchOffersAction,
+} from '../../store/api-actions';
 
 type MainPageProps = {
   authorizationStatus: AuthorizationStatus;
@@ -36,6 +39,7 @@ function MainPage({ authorizationStatus }: MainPageProps): JSX.Element {
 
   useEffect(() => {
     dispatch(fetchOffersAction());
+    dispatch(fetchFavoritesAction());
   }, [dispatch, authorizationStatus]);
 
   const handleCardHover = useCallback(

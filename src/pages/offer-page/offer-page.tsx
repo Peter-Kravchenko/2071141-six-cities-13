@@ -4,6 +4,7 @@ import UserInfo from '../../components/user-info/user-info';
 import { useAppDispatch, useAppSelector } from '../../hooks/index';
 import { useParams } from 'react-router-dom';
 import {
+  fetchFavoritesAction,
   fetchNearPlacesAction,
   fetchOfferAction,
 } from '../../store/api-actions';
@@ -38,6 +39,7 @@ function OfferPage(): JSX.Element {
 
   useEffect(() => {
     if (id) {
+      dispatch(fetchFavoritesAction());
       dispatch(fetchOfferAction(id));
       dispatch(fetchNearPlacesAction(id));
     }
