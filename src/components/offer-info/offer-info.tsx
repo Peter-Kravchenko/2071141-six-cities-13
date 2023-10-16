@@ -94,7 +94,6 @@ function OfferInfo({ offer }: OfferInfoProps): JSX.Element {
             <h2 className="offer__host-title">Meet the host</h2>
             <div className="offer__host-user user">
               <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
-                {/* проверка на pro */}
                 <img
                   className="offer__avatar user__avatar"
                   src={host.avatarUrl}

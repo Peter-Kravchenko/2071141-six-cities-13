@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
 import { AxiosInstance } from 'axios';
 import { FavoriteData, Offers } from '../types/offers';
-import { APIRoute, AppRoute, AuthorizationStatus, NameSpace } from '../const';
+import { APIRoute, AppRoute, NameSpace } from '../const';
 import { AuthData } from '../types/auth-data';
 import { dropToken, saveToken } from '../services/token';
 import { Offer } from '../types/offer';
@@ -47,21 +47,20 @@ export const changeFavoritesAction = createAsyncThunk<
   Extra & { state: State }
 >(
   `${NameSpace.Favorites}/changeFavorites`,
-  async ({ id, status }, { extra: api, getState, dispatch }) => {
-    const authorizationStatus = getState()[NameSpace.User].authorizationStatus;
-
-    if (authorizationStatus !== AuthorizationStatus.Auth) {
-      dispatch(redirectToRoute(AppRoute.Login));
-      return null;
-    }
+  async ({ id, status }, { extra: api, dispatch }) => {
     const { data } = await api.post<Offer>(
       `${APIRoute.Favorite}/${id}/${status}`
     );
+    dispatch(fetchFavoritesAction());
     return data;
   }
 );
 
-export const fetchNearPlacesAction = createAsyncThunk<Offers[], string, Extra>(
+export const fetchNearPlacesAction = createAsyncThunk<
+  Offers[],
+  Offer['id'],
+  Extra
+>(
   `${NameSpace.NearPlaces}/fetchNearPlaces`,
   async (offerId, { extra: api }) => {
     const { data } = await api.get<Offers[]>(

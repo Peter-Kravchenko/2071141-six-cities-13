@@ -15,9 +15,9 @@ function FavoritesPage(): JSX.Element {
   const favorites = useAppSelector(getFavorites);
   const favoritesFetchingStatus = useAppSelector(getFavoritesFetchingStatus);
 
-  // if (favoritesFetchingStatus === RequestStatus.Pending) {
-  //   return <LoadingScreen />;
-  // }
+  if (favoritesFetchingStatus === RequestStatus.Pending) {
+    return <LoadingScreen />;
+  }
 
   return (
     <div className="page">
