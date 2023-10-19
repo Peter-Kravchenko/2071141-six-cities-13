@@ -1,7 +1,7 @@
 import { FormEvent, useRef } from 'react';
 import Logo from '../../components/logo/logo';
 
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { loginAction } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks/index';
 import { AppRoute, AuthorizationStatus } from '../../const';
@@ -14,7 +14,8 @@ function LoginPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const isAuthorized = useAppSelector(getAuthorizationStatus);
+  const isAuthorized =
+    useAppSelector(getAuthorizationStatus) === AuthorizationStatus.Auth;
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -28,10 +29,11 @@ function LoginPage(): JSX.Element {
       );
       navigate(AppRoute.Root);
     }
-    if (isAuthorized === AuthorizationStatus.Auth) {
-      return <Navigate to={AppRoute.Root} />;
-    }
   };
+
+  if (isAuthorized) {
+    return <Navigate to={AppRoute.Root} />;
+  }
 
   return (
     <div className="page page--gray page--login">
@@ -84,9 +86,9 @@ function LoginPage(): JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#">
+              <Link to={AppRoute.Root} className="locations__item-link">
                 <span>Amsterdam</span>
-              </a>
+              </Link>
             </div>
           </section>
         </div>

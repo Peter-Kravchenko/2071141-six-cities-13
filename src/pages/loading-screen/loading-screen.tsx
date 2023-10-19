@@ -1,5 +1,20 @@
+import { RiseLoader } from 'react-spinners';
+import './loading-screen.css';
+
 function LoadingScreen(): JSX.Element {
-  return <p>Loading ...</p>;
+  return (
+    <div className="user-page">
+      <span className="loader">
+        <RiseLoader
+          color="blue"
+          loading
+          margin={10}
+          size={20}
+          speedMultiplier={1}
+        />
+      </span>
+    </div>
+  );
 }
 
 export default LoadingScreen;
