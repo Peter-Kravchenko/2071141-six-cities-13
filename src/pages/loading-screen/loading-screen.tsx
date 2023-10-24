@@ -6,7 +6,7 @@ function LoadingScreen(): JSX.Element {
     <div className="user-page">
       <span className="loader">
         <RiseLoader
-          color="blue"
+          color="#279DEA"
           loading
           margin={10}
           size={20}

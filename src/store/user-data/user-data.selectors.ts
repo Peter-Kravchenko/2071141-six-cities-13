@@ -1,14 +1,19 @@
+import { createSelector } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { State } from '../../types/state';
 import { UserData } from '../../types/state';
 
-export const getUser = (state: Pick<State, NameSpace.User>): UserData['user'] =>
-  state[NameSpace.User].user;
+export const getUser = createSelector(
+  (state: State) => state[NameSpace.User],
+  (state: UserData) => state.user
+);
 
-export const getAuthorizationStatus = (
-  state: Pick<State, NameSpace.User>
-): UserData['authorizationStatus'] => state[NameSpace.User].authorizationStatus;
+export const getAuthorizationStatus = createSelector(
+  (state: State) => state[NameSpace.User],
+  (state: UserData) => state.authorizationStatus
+);
 
-export const getLoginStatus = (
-  state: Pick<State, NameSpace.User>
-): UserData['loginStatus'] => state[NameSpace.User].loginStatus;
+export const getLoginStatus = createSelector(
+  (state: State) => state[NameSpace.User],
+  (state: UserData) => state.loginStatus
+);

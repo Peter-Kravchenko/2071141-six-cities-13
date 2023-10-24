@@ -6,7 +6,6 @@ import Map from '../../components/map/map';
 import UserInfo from '../../components/user-info/user-info';
 import { useAppDispatch, useAppSelector } from '../../hooks/index';
 import { Offers } from '../../types/offers';
-import NotFoundPage from '../not-found-page/not-found-page';
 import { SortingType } from '../../types/sorting';
 import Sorting from '../../components/sorting/sorting';
 import { AuthorizationStatus, RequestStatus } from '../../const';
@@ -42,7 +41,7 @@ function MainPage({ authorizationStatus }: MainPageProps): JSX.Element {
     dispatch(fetchFavoritesAction());
   }, [dispatch, authorizationStatus]);
 
-  const handleCardHover = useCallback(
+  const onCardHover = useCallback(
     (card: Offers | undefined) => {
       if (card) {
         const currentOffer = offers.find((offer) => offer.id === card.id);
@@ -92,7 +91,7 @@ function MainPage({ authorizationStatus }: MainPageProps): JSX.Element {
             <CardList
               activeSorting={activeSorting}
               offers={currentOffers}
-              onCardHover={handleCardHover}
+              onCardHover={onCardHover}
             />
           </section>
           {currentOffers.length ? (
@@ -102,7 +101,9 @@ function MainPage({ authorizationStatus }: MainPageProps): JSX.Element {
               specialOffer={activeCard}
             />
           ) : (
-            <NotFoundPage />
+            <section className="cities__places places">
+              <h2> Places not found in database </h2>
+            </section>
           )}
         </div>
       </div>

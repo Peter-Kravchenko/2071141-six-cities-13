@@ -1,13 +1,18 @@
+import { createSelector } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { OffersData, State } from '../../types/state';
 
-export const getOffers = (state: State): OffersData['offers'] =>
-  state[NameSpace.Offers].offers;
+export const getOffers = createSelector(
+  (state: State) => state[NameSpace.Offers],
+  (state: OffersData) => state.offers
+);
 
-export const getActiveCity = (
-  state: Pick<State, NameSpace.Offers>
-): OffersData['activeCity'] => state[NameSpace.Offers].activeCity;
+export const getActiveCity = createSelector(
+  (state: State) => state[NameSpace.Offers],
+  (state: OffersData) => state.activeCity
+);
 
-export const getOffersFetchingStatus = (
-  state: Pick<State, NameSpace.Offers>
-): OffersData['fetchingStatus'] => state[NameSpace.Offers].fetchingStatus;
+export const getOffersFetchingStatus = createSelector(
+  (state: State) => state[NameSpace.Offers],
+  (state: OffersData) => state.fetchingStatus
+);

@@ -1,4 +1,5 @@
-import { FavoritePageType } from '../../const';
+import { Link } from 'react-router-dom';
+import { AppRoute, FavoritePageType } from '../../const';
 import { Offers } from '../../types/offers';
 import BookmarkButton from '../bookmark-button/bookmark-button';
 
@@ -26,7 +27,7 @@ function FavoriteCard({ offer }: FavoriteCardProps): JSX.Element {
         </div>
       ) : null}
       <div className="favorites__image-wrapper place-card__image-wrapper">
-        <a href="#">
+        <div>
           <img
             className="place-card__image"
             src={previewImage}
@@ -34,7 +35,7 @@ function FavoriteCard({ offer }: FavoriteCardProps): JSX.Element {
             height={110}
             alt="Place image"
           />
-        </a>
+        </div>
       </div>
       <div className="favorites__card-info place-card__info">
         <div className="place-card__price-wrapper">
@@ -55,7 +56,7 @@ function FavoriteCard({ offer }: FavoriteCardProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <Link to={`${AppRoute.Offer}/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

@@ -9,6 +9,7 @@ import { Offer } from '../types/offer';
 import { Comment, CommentAdd } from '../types/comment';
 import { redirectToRoute } from './action';
 import { User } from '../types/user';
+import { toast } from 'react-toastify';
 
 type Extra = {
   dispatch: AppDispatch;
@@ -22,7 +23,7 @@ export const fetchOffersAction = createAsyncThunk<Offers[], undefined, Extra>(
     const { data } = await api
       .get<Offers[]>(APIRoute.Offers)
       .catch((err: AxiosError) => {
-        throw new Error(err.message);
+        throw toast.error(err.message);
       });
     return data;
   }
@@ -34,7 +35,7 @@ export const fetchOfferAction = createAsyncThunk<Offer, Offer['id'], Extra>(
     const { data } = await api
       .get<Offer>(`${APIRoute.Offers}/${offerId}`)
       .catch((err: AxiosError) => {
-        throw new Error(err.message);
+        throw toast.error(err.message);
       });
     return data;
   }
@@ -48,7 +49,7 @@ export const fetchFavoritesAction = createAsyncThunk<
   const { data } = await api
     .get<Offers[]>(APIRoute.Favorite)
     .catch((err: AxiosError) => {
-      throw new Error(err.message);
+      throw toast.error(err.message);
     });
   return data;
 });
@@ -63,7 +64,7 @@ export const changeFavoritesAction = createAsyncThunk<
     const { data } = await api
       .post<Offer>(`${APIRoute.Favorite}/${id}/${status}`)
       .catch((err: AxiosError) => {
-        throw new Error(err.message);
+        throw toast.error(err.message);
       });
     dispatch(fetchFavoritesAction());
     return data;
@@ -80,7 +81,7 @@ export const fetchNearPlacesAction = createAsyncThunk<
     const { data } = await api
       .get<Offers[]>(`${APIRoute.Offers}/${offerId}${APIRoute.Nearby}`)
       .catch((err: AxiosError) => {
-        throw new Error(err.message);
+        throw toast.error(err.message);
       });
     return data;
   }
@@ -94,7 +95,7 @@ export const fetchCommentAction = createAsyncThunk<
   const { data } = await api
     .get<Comment[]>(`${APIRoute.Comments}/${offerId}`)
     .catch((err: AxiosError) => {
-      throw new Error(err.message);
+      throw toast.error(err.message);
     });
   return data;
 });
@@ -109,7 +110,7 @@ export const addCommentAction = createAsyncThunk<
     const { data } = await api
       .post<Comment[]>(`${APIRoute.Comments}/${offerId}`, commentData)
       .catch((err: AxiosError) => {
-        throw new Error(err.message);
+        throw toast.error(err.message);
       });
     dispatch(fetchCommentAction(offerId));
     return data;
@@ -122,7 +123,7 @@ export const checkAuthAction = createAsyncThunk<User, undefined, Extra>(
     const { data } = await api
       .get<User>(APIRoute.Login)
       .catch((err: AxiosError) => {
-        throw new Error(err.message);
+        throw toast.error(err.message);
       });
     return data;
   }
@@ -137,7 +138,7 @@ export const loginAction = createAsyncThunk<User, AuthData, Extra>(
         password,
       })
       .catch((err: AxiosError) => {
-        throw new Error(err.message);
+        throw toast.error(err.message);
       });
     saveToken(data.token);
     dispatch(redirectToRoute(AppRoute.Root));
@@ -150,7 +151,7 @@ export const logoutAction = createAsyncThunk<void, undefined, Extra>(
   `${NameSpace.User}/logout`,
   async (_arg, { extra: api }) => {
     await api.delete(APIRoute.Logout).catch((err: AxiosError) => {
-      throw new Error(err.message);
+      throw toast.error(err.message);
     });
     dropToken();
   }
