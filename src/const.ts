@@ -19,7 +19,7 @@ export const CityNames: string[] = [
   'Dusseldorf',
 ];
 
-export const MONTHS = [
+export const Months: string[] = [
   'January',
   'February',
   'March',

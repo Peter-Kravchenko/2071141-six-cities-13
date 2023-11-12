@@ -4,7 +4,7 @@ import FavoriteList from '../../components/favorite-list/favorite-list';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
 import UserInfo from '../../components/user-info/user-info';
-import { RequestStatus } from '../../const';
+import { AuthorizationStatus, RequestStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks/index';
 import {
   getFavorites,
@@ -13,12 +13,20 @@ import {
 import LoadingScreen from '../loading-screen/loading-screen';
 import { fetchFavoritesAction } from '../../store/api-actions';
 
-function FavoritesPage(): JSX.Element {
+type FavoritesPageProps = {
+  authorizationStatus: AuthorizationStatus;
+};
+
+function FavoritesPage({
+  authorizationStatus,
+}: FavoritesPageProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchFavoritesAction());
-  }, [dispatch]);
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      dispatch(fetchFavoritesAction());
+    }
+  }, [dispatch, authorizationStatus]);
 
   const favorites = useAppSelector(getFavorites);
   const favoritesFetchingStatus = useAppSelector(getFavoritesFetchingStatus);

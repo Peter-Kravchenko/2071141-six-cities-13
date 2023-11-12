@@ -16,7 +16,7 @@ store.dispatch(checkAuthAction());
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ToastContainer />
+      <ToastContainer theme="colored" position="top-left" autoClose={2000} />
       <App />
     </Provider>
   </React.StrictMode>
