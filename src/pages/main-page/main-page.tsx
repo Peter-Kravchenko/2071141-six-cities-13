@@ -28,17 +28,22 @@ type MainPageProps = {
 function MainPage({ authorizationStatus }: MainPageProps): JSX.Element {
   const dispatch = useAppDispatch();
   const activeCity = useAppSelector(getActiveCity);
+
   const offers = useAppSelector(getOffers);
   const offersFetchingStatus = useAppSelector(getOffersFetchingStatus);
   const currentOffers: Offers[] = offers.filter(
     (offer) => offer.city.name === activeCity
   );
+
   const [activeCard, setActiveCard] = useState<Offers | undefined>(undefined);
   const [activeSorting, setActiveSorting] = useState<SortingType>('Popular');
 
   useEffect(() => {
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      dispatch(fetchFavoritesAction());
+    }
+
     dispatch(fetchOffersAction());
-    dispatch(fetchFavoritesAction());
   }, [dispatch, authorizationStatus]);
 
   const onCardHover = useCallback(
