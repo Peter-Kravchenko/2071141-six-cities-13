@@ -8,7 +8,7 @@ import { StatusCodes } from 'http-status-codes';
 import { toast } from 'react-toastify';
 import { getToken } from './token';
 
-const BACKEND_URL = 'https://13.design.pages.academy/six-cities';
+const BACKEND_URL = 'https://13.design.htmlacademy.pro/six-cities';
 
 const REQUEST_TIMEOUT = 5000;
 
