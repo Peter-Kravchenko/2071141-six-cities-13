@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { SortingType } from '../../types/sorting';
 import { SortingMap } from '../../const';
 import cn from 'classnames';
@@ -12,7 +12,7 @@ function Sorting({ activeSorting, onChange }: SortingProps): JSX.Element {
   const [isOpened, setOpened] = useState(false);
   const opened = isOpened ? 'places__options--opened' : '';
 
-  function handleEcsKeydown(evt: KeyboardEvent) {
+  function handleEcsKeydown(evt: React.KeyboardEvent) {
     if (evt.key === 'Escape' && isOpened) {
       evt.preventDefault();
       setOpened(false);
